@@ -3,14 +3,18 @@
 
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
-module.exports = function(defaults) {
-  let app = new EmberAddon(defaults, {
-    eslint: {
-      testGenerator: 'mocha',
-    },
-  });
+module.exports = function (defaults) {
+    let app = new EmberAddon(defaults, {
+        eslint: {
+            testGenerator: 'mocha',
+        },
+        autoImport: {
+            //insertScriptsAt: 'auto-import-script',
+            exclude: ['mocha', 'chai', 'browser-entry'],
+        },
+    });
 
-  /*
+    /*
     This build file specifies the options for the dummy test app of this
     addon, located in `/tests/dummy`
     This build file does *not* influence how the addon or the app using it
@@ -21,7 +25,7 @@ module.exports = function(defaults) {
   return maybeEmbroider(app, {
     skipBabel: [
       {
-        package: 'qunit',
+        package: 'mocha',
       },
     ],
   });
