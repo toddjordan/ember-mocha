@@ -62,7 +62,7 @@
     "eslint-plugin-node": "^11.0.0",
     "lerna-changelog": "^2.2.0",
     "loader.js": "^4.7.0",
-    "mocha": "^8.0.0",
+    "mocha": "^9.0.0",
     "pretender": "^3.4.3",
     "process": "^0.11.10",
     "stream": "^0.0.2",
@@ -70,9 +70,8 @@
     "webpack": "^5.0.0"
   },
   "peerDependencies": {
-    "mocha": "^8.0.0"
+    "mocha": "^9.0.0"
   },
-
   "engines": {
     "node": ">= 14.*"
   },
