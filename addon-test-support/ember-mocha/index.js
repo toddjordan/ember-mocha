@@ -5,7 +5,6 @@ import { loadTests } from './test-loader';
 import setupTest from 'ember-mocha/setup-test';
 import setupRenderingTest from 'ember-mocha/setup-rendering-test';
 import setupApplicationTest from 'ember-mocha/setup-application-test';
-import mocha, { beforeEach, afterEach } from 'mocha';
 import { setResolver, resetOnerror } from '@ember/test-helpers';
 import Ember from 'ember';
 
@@ -15,28 +14,28 @@ import Ember from 'ember';
   completed. This is done via `beforeEach` and `afterEach`.
  */
 export function setupEmberTesting() {
-  beforeEach(function() {
+  Mocha.beforeEach(function() {
     Ember.testing = true;
   });
 
-  afterEach(function() {
+  Mocha.afterEach(function() {
     Ember.testing = false;
   });
 }
 
 function setupMocha(options) {
-  mocha.setup(options || {});
+  Mocha.setup(options || {});
 }
 
 /**
  * Instruct Mocha to start the tests.
  */
 export function startTests() {
-  mocha.run();
+  Mocha.run();
 }
 
 function setupResetOnerror() {
-  afterEach(function() {
+  Mocha.afterEach(function() {
     resetOnerror();
   });
 }
