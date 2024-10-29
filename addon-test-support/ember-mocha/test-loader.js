@@ -1,4 +1,4 @@
-import { describe, it } from 'mocha';
+
 import AbstractTestLoader, {
   addModuleIncludeMatcher,
 } from 'ember-cli-test-loader/test-support/index';
@@ -13,13 +13,6 @@ export class TestLoader extends AbstractTestLoader {
       && (moduleName.match(/[-_]test$/) || moduleName.match(/\.jshint$/));
   }
 
-  moduleLoadFailure(moduleName, error) {
-    describe('TestLoader Failures', function() {
-      it(moduleName + ': could not be loaded', function() {
-        throw error;
-      });
-    });
-  }
 }
 
 /**
