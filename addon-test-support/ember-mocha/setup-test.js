@@ -1,4 +1,4 @@
-import { beforeEach, afterEach } from 'mocha';
+//import { beforeEach, afterEach } from 'mocha';
 import { setupContext, teardownContext } from '@ember/test-helpers';
 import { resolve } from 'rsvp';
 
@@ -25,7 +25,7 @@ export default function setupTest(options) {
     let beforeEachHooks = [];
     let afterEachHooks = [];
 
-  beforeEach(async function () {
+  window.beforeEach(async function () {
     originalContext = _assign({}, this);
     let context = new Proxy(this, {});
     this._emberContext = context;
@@ -34,7 +34,7 @@ export default function setupTest(options) {
     await chainHooks(beforeEachHooks, this);
   });
 
-  afterEach(async function () {
+  window.afterEach(async function () {
     await chainHooks(afterEachHooks, this)
     await teardownContext(this._emberContext);
     for (let key in this) {
