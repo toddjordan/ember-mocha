@@ -1,5 +1,7 @@
 //import { beforeEach, afterEach } from 'mocha';
-import { setupContext, teardownContext } from '@ember/test-helpers';
+import setupContext from '@ember/test-helpers/setup-context';
+import teardownContext from '@ember/test-helpers/teardown-context';
+
 import { resolve } from 'rsvp';
 
 const _assign = Object.assign;
@@ -24,29 +26,32 @@ export default function setupTest(options) {
     let originalContext;
     let beforeEachHooks = [];
     let afterEachHooks = [];
+    window.beforeEach(async function () {
+        if (typeof setupContext !== 'function') {
+            throw new Error(
+                'setupContext is not a function — could not load @ember/test-helpers correctly'
+            );
+        }
 
-  window.beforeEach(async function () {
-    originalContext = _assign({}, this);
-    let context = new Proxy(this, {});
-    this._emberContext = context;
-    await setupContext(this._emberContext, options);
-    await setupPauseTest(this);
-    await chainHooks(beforeEachHooks, this);
-  });
+        originalContext = _assign({}, this);
+        let context = new Proxy(this, {});
+        this._emberContext = context;
+        await setupContext(this._emberContext, options);
+        await setupPauseTest(this);
+        await chainHooks(beforeEachHooks, this);
+    });
 
-  window.afterEach(async function () {
-    await chainHooks(afterEachHooks, this)
-    await teardownContext(this._emberContext);
-    for (let key in this) {
-      if (!(key in originalContext)) {
-        delete this[key];
-      }
-    }
+    window.afterEach(async function () {
+        await chainHooks(afterEachHooks, this);
+        await teardownContext(this._emberContext);
+        for (let key in this) {
+            if (!(key in originalContext)) {
+                delete this[key];
+            }
+        }
 
-    //copy over the original values
-    _assign(this, originalContext);
-
-  });
+        _assign(this, originalContext);
+    });
 
     /**
      * Provide a workaround for the inconvenient FIFO-always order of beforeEach/afterEach calls

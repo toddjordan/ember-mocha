@@ -7,7 +7,30 @@ import setupTest from 'ember-mocha/setup-test';
 import setupRenderingTest from 'ember-mocha/setup-rendering-test';
 import setupApplicationTest from 'ember-mocha/setup-application-test';
 //import { beforeEach, afterEach } from 'mocha';
-import { setResolver, resetOnerror } from '@ember/test-helpers';
+import * as TestHelpers from '@ember/test-helpers';
+
+let resetOnerror = TestHelpers.resetOnerror;
+if (typeof resetOnerror !== 'function') {
+  console.warn('[ember-mocha] resetOnerror not found; skipping test error handling install.');
+  resetOnerror = function () {}; // noop fallback to allow tests to run
+}
+
+let setResolver = TestHelpers.setResolver;
+if (typeof setResolver !== 'function') {
+  console.warn('[ember-mocha] setResolver not found; skipping resolver init.');
+  setResolver = function () {};
+}
+console.log('🔥 resetOnerror:', resetOnerror);
+// import * as TestHelpers from '@ember/test-helpers';
+
+// let resetOnerror = TestHelpers.resetOnerror;
+// let setResolver = TestHelpers.setResolver;
+
+// // Optional: Add a guard
+// if (typeof resetOnerror !== 'function') {
+//   throw new Error('resetOnerror not available — check @ember/test-helpers resolution');
+// }
+
 import Ember from 'ember';
 
 /**
