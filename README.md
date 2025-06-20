@@ -177,6 +177,17 @@ describe('basic acceptance test', function() {
 });
 ```
 
+## Compatibility Notes
+
+### PNPM + Embroider support
+
+`ember-mocha` now uses deep imports from `@ember/test-helpers` to avoid issues with Embroider's module rewriting and PNPM's strict node_modules isolation.
+
+If you're running tests in Embroider + PNPM and see errors like `setupContext is not a function`, ensure:
+
+- Your test suite includes static imports of the helpers you use (e.g., `import { setupRenderingTest } from '@ember/test-helpers'`)
+- You are on `@ember/test-helpers >= 3.2.0`
+
 Upgrading
 ------------------------------------------------------------------------------
 

@@ -1,7 +1,6 @@
-import {
-  setupApplicationContext,
-  teardownContext
-} from '@ember/test-helpers';
+import setupApplicationContext from '@ember/test-helpers/setup-application-context';
+import teardownContext from '@ember/test-helpers/teardown-context';
+
 import setupTest from './setup-test';
 
 export default function setupApplicationTest(_options) {

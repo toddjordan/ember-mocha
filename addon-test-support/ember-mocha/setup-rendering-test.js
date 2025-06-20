@@ -1,7 +1,5 @@
-import {
-  setupRenderingContext,
-  teardownContext
-} from '@ember/test-helpers';
+import setupRenderingContext from '@ember/test-helpers/setup-rendering-context';
+import teardownContext from '@ember/test-helpers/teardown-context';
 import setupTest from './setup-test';
 
 export default function setupRenderingTest(_options) {
